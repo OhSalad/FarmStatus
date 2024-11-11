@@ -1,14 +1,11 @@
 package com.github.ohsalad.farmstatus;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.Vec3;
 
-import java.util.Vector;
 
 public class FarmingUtils {
     private static final float ROTATION_THRESHOLD = 10.0f; // 10 degrees
@@ -62,10 +59,6 @@ public class FarmingUtils {
         stillnessCounter = 0;
     }
 
-    private void playSound(EntityPlayerSP player) {
-        // Play sound to the player only
-        player.playSound("fireworks.blast", 1.0F, 1.0F);
-    }
     public static void updateLastPositionAndRotation(EntityPlayerSP player) {
         // Update the last known position and rotation for the next tick
         lastPosX = player.posX;
