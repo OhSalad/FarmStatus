@@ -1,10 +1,9 @@
 package xyz.salad.farmstatus;
 
-import cc.polyfrost.oneconfig.utils.commands.CommandManager;
 import net.minecraft.client.Minecraft;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import xyz.salad.farmstatus.command.FarmStatusCommand;
 import xyz.salad.farmstatus.init.MainConfig;
 
 
@@ -18,7 +17,8 @@ public class FarmStatus {
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         config = new MainConfig();
-        CommandManager.register(new FarmStatusCommand());
+        MinecraftForge.EVENT_BUS.register(new FarmingFailsafe());
+
     }
 
 }
