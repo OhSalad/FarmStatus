@@ -1,4 +1,4 @@
-package com.github.ohsalad.farmstatus.init;
+package xyz.salad.farmstatus.init;
 
 import org.spongepowered.asm.lib.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
