@@ -1,6 +1,5 @@
 package xyz.salad.farmstatus;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
@@ -9,6 +8,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import xyz.salad.farmstatus.init.MainConfig;
 
 import static xyz.salad.farmstatus.FarmingUtils.*;
+import static xyz.salad.farmstatus.PlayerAPI.player;
 import static xyz.salad.farmstatus.init.MainConfig.startTime;
 
 
@@ -22,14 +22,13 @@ public class FarmingFailsafe {
                 return;
             }
             if(System.currentTimeMillis() - startTime >= 3000 ){
-                EntityPlayerSP player = mc.thePlayer;
 
                 if ((checkStillness(player) || checkRotation(player)) || isStandingOnBedrock(player) && ticksPlaying == 0) {
                     ticksPlaying = 60;
                     player.addChatMessage(new ChatComponentText(EnumChatFormatting.RED +"YOU ARE BEING MACRO CHECKED!! ACT NORMAL"));
                 }
                 if (ticksPlaying > 0) {
-                    player.playSound("fireworks.blast", 1.0F, 1.0F);
+                    player.playSound("fireworks.blast", 10.0F, 10.0F);
                     ticksPlaying--;
                     if (ticksPlaying == 0) {
                         resetStillnessCounter();

@@ -14,6 +14,7 @@ import net.minecraft.util.EnumChatFormatting;
 
 
 import static xyz.salad.farmstatus.FarmStatus.mc;
+import static xyz.salad.farmstatus.PlayerAPI.player;
 
 public class MainConfig extends Config {
     public static long startTime;
@@ -27,7 +28,6 @@ public class MainConfig extends Config {
         if(!farmingFailsafe)
             startTime = System.currentTimeMillis();
         farmingFailsafe = !farmingFailsafe;
-        EntityPlayerSP player = mc.thePlayer;
         player.addChatMessage(new ChatComponentText(EnumChatFormatting.GREEN +"Farming failsafe is now: " + EnumChatFormatting.GOLD + farmingFailsafe));
     }
 
