@@ -8,32 +8,25 @@ import cc.polyfrost.oneconfig.config.data.Mod;
 import cc.polyfrost.oneconfig.config.data.ModType;
 import cc.polyfrost.oneconfig.config.data.OptionSize;
 import cc.polyfrost.oneconfig.libs.universal.UKeyboard;
-import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.EnumChatFormatting;
-
-
-import static xyz.salad.farmstatus.FarmStatus.mc;
-import static xyz.salad.farmstatus.PlayerAPI.player;
+import xyz.salad.farmstatus.FarmingUtils;
+import xyz.salad.farmstatus.farmkeybind.FarmingNodes;
 
 public class MainConfig extends Config {
     public static long startTime;
     public MainConfig() {
         super(new Mod("FarmStatus", ModType.SKYBLOCK), "config.json");
         initialize();
-        registerKeyBind(keyBind, MainConfig::farmingFailsafe);
-
-    }
-    public static void farmingFailsafe(){
-        if(!farmingFailsafe)
-            startTime = System.currentTimeMillis();
-        farmingFailsafe = !farmingFailsafe;
-        player.addChatMessage(new ChatComponentText(EnumChatFormatting.GREEN +"Farming failsafe is now: " + EnumChatFormatting.GOLD + farmingFailsafe));
+        registerKeyBind(failsafeKeybinding, FarmingUtils::farmingFailsafe);
+        registerKeyBind(farmingNodeKeybinding, FarmingNodes::addFarmingNode);
     }
 
     @KeyBind(
             name = "Farming failsafe keyBind"
-    )        OneKeyBind keyBind = new OneKeyBind(UKeyboard.KEY_LSHIFT, UKeyboard.KEY_S);
+    )        OneKeyBind failsafeKeybinding = new OneKeyBind(UKeyboard.KEY_LSHIFT, UKeyboard.KEY_S);
+
+    @KeyBind(
+            name = "Add Farming Node"
+    )        OneKeyBind farmingNodeKeybinding = new OneKeyBind(UKeyboard.KEY_LSHIFT, UKeyboard.KEY_ADD);
 
 // using OneKeyBind to set the default key combo to Shift+S
     @Switch(
@@ -42,4 +35,5 @@ public class MainConfig extends Config {
             subcategory = "Switches"
     )
     public static boolean farmingFailsafe = false;
+
 }

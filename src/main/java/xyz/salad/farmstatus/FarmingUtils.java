@@ -5,6 +5,11 @@ import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.EnumChatFormatting;
+
+import static xyz.salad.farmstatus.FarmStatus.mc;
+import static xyz.salad.farmstatus.init.MainConfig.farmingFailsafe;
 
 
 public class FarmingUtils {
@@ -18,6 +23,7 @@ public class FarmingUtils {
     public static float lastPitch;
     public static int stillnessCounter = 0;
 
+    public static long startTime = System.currentTimeMillis();
 
     public static boolean checkStillness(EntityPlayerSP player) {
         if (!hasPlayerMoved(player)) {
@@ -70,6 +76,12 @@ public class FarmingUtils {
         Block blockBelow = player.worldObj.getBlockState(new BlockPos(blockX, blockY, blockZ)).getBlock();
         return blockBelow == Blocks.bedrock;
 
+    }
+    public static void farmingFailsafe(){
+        if(!farmingFailsafe)
+            startTime = System.currentTimeMillis();
+        farmingFailsafe = !farmingFailsafe;
+        mc.thePlayer.addChatMessage(new ChatComponentText(EnumChatFormatting.GREEN +"Farming failsafe is now: " + EnumChatFormatting.GOLD + farmingFailsafe));
     }
 
 }
